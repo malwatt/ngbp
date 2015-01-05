@@ -13,8 +13,8 @@ src/
 ```
 
 - `home.js` - defines the module.
-- `home.less` - module-specific styles; this file is imported into
-  `src/less/main.less` manually by the developer.
+- `home.styl` - module-specific styles; this file is imported into
+  `src/stylus/main.styl` manually by the developer.
 - `home.spec.js` - module unit tests.
 - `home.tpl.html` - the route template.
 
@@ -26,13 +26,13 @@ as dependencies of this one.  For example, a `note` section could have the
 submodules `note.create`, `note.delete`, `note.search`, etc.
 
 Regardless, so long as dependencies are managed correctly, the build process
-will automatically take take of the rest.
+will automatically take care of the rest.
 
 The dependencies block is also where component dependencies should be
 specified, as shown below.
 
 ```js
-angular.module( 'ngBoilerplate.home', [
+angular.module( 'ngSS.home', [
   'ui.router',
   'titleService',
   'plusOne'

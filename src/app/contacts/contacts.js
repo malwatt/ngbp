@@ -1,23 +1,23 @@
-angular.module( 'ngSS.about', [
+angular.module( 'ngSS.contacts', [
   'ui.router',
   'placeholders',
   'ui.bootstrap'
 ])
 
 .config(function config( $stateProvider ) {
-  $stateProvider.state( 'about', {
-    url: '/about',
+  $stateProvider.state( 'contacts', {
+    url: '/contacts',
     views: {
       "main": {
-        controller: 'AboutCtrl',
-        templateUrl: 'about/about.tpl.html'
+        controller: 'ContactsCtrl',
+        templateUrl: 'contacts/contacts.tpl.html'
       }
     },
-    data:{ pageTitle: 'About' }
+    data:{ pageTitle: 'Contacts' }
   });
 })
 
-.controller( 'AboutCtrl', function AboutCtrl( $scope ) {
+.controller( 'ContactsCtrl', function ContactsCtrl( $scope ) {
   // This is simple a demo for UI Boostrap.
   $scope.dropdownDemoItems = [
     "The first choice!",

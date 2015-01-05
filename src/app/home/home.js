@@ -7,12 +7,12 @@
  * `note.delete`, `note.edit`, etc.
  *
  * Regardless, so long as dependencies are managed correctly, the build process
- * will automatically take take of the rest.
+ * will automatically take care of the rest.
  *
  * The dependencies block here is also where component dependencies should be
  * specified, as shown below.
  */
-angular.module( 'ngBoilerplate.home', [
+angular.module( 'ngSS.home', [
   'ui.router',
   'plusOne'
 ])

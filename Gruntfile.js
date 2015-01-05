@@ -11,7 +11,7 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-coffee');
-  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-conventional-changelog');
   grunt.loadNpmTasks('grunt-bump');
   grunt.loadNpmTasks('grunt-coffeelint');
@@ -254,23 +254,39 @@ module.exports = function ( grunt ) {
     },
 
     /**
-     * `grunt-contrib-less` handles our LESS compilation and uglification automatically.
-     * Only our `main.less` file is included in compilation; all other files
+     * `grunt-contrib-stylus` handles our Stylus compilation and uglification automatically.
+     * Only our `main.styl` file is included in compilation; all other files
      * must be imported from this file.
      */
-    less: {
+    stylus: {
       build: {
+        options: {
+          compress: false,
+          linenos: true,
+          use: [
+            // require('kouto-swiss') // use stylus plugin at compile time
+            require('axis'),
+			require('jeet'),
+            require('rupture')
+          ]
+	    },
         files: {
-          '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css': '<%= app_files.less %>'
+          '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css': [ 'src/**/*.styl' ]
         }
       },
       compile: {
-        files: {
-          '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css': '<%= app_files.less %>'
-        },
         options: {
-          cleancss: true,
-          compress: true
+          compress: true,
+          linenos: false,
+          use: [
+            // require('kouto-swiss') // use stylus plugin at compile time
+            require('axis'),
+			require('jeet'),
+            require('rupture')
+          ]
+        },
+        files: {
+          '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css': [ 'src/**/*.styl' ]
         }
       }
     },
@@ -307,7 +323,7 @@ module.exports = function ( grunt ) {
 
     /**
      * `coffeelint` does the same as `jshint`, but for CoffeeScript.
-     * CoffeeScript is not the default in ngBoilerplate, so we're just using
+     * CoffeeScript is not the default in ngSS, so we're just using
      * the defaults here.
      */
     coffeelint: {
@@ -512,9 +528,9 @@ module.exports = function ( grunt ) {
       /**
        * When the CSS files change, we need to compile and minify them.
        */
-      less: {
-        files: [ 'src/**/*.less' ],
-        tasks: [ 'less:build' ]
+      stylus: {
+        files: [ 'src/**/*.styl' ],
+        tasks: [ 'stylus' ]
       },
 
       /**
@@ -568,7 +584,7 @@ module.exports = function ( grunt ) {
    * The `build` task gets your app ready to run for development and testing.
    */
   grunt.registerTask( 'build', [
-    'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
+    'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'stylus:build',
     'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
     'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss', 'index:build', 'karmaconfig',
     'karma:continuous' 
@@ -579,7 +595,7 @@ module.exports = function ( grunt ) {
    * minifying your code.
    */
   grunt.registerTask( 'compile', [
-    'less:compile', 'copy:compile_assets', 'ngAnnotate', 'concat:compile_js', 'uglify', 'index:compile'
+    'stylus:compile', 'copy:compile_assets', 'ngAnnotate', 'concat:compile_js', 'uglify', 'index:compile'
   ]);
 
   /**

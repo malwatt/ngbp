@@ -264,10 +264,11 @@ module.exports = function ( grunt ) {
           compress: false,
           linenos: true,
           use: [
+			require('bootstrap-styl'),
             // require('kouto-swiss') // use stylus plugin at compile time
-            require('axis'),
-			require('jeet'),
-            require('rupture')
+            //require('axis'),
+			//require('jeet'),
+            //require('rupture')
           ]
 	    },
         files: {
@@ -279,10 +280,11 @@ module.exports = function ( grunt ) {
           compress: true,
           linenos: false,
           use: [
+			require('bootstrap-styl'),
             // require('kouto-swiss') // use stylus plugin at compile time
-            require('axis'),
-			require('jeet'),
-            require('rupture')
+            //require('axis'),
+			//require('jeet'),
+            //require('rupture')
           ]
         },
         files: {

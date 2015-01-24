@@ -2,7 +2,7 @@ describe( 'AppCtrl', function() {
   describe( 'isCurrentUrl', function() {
     var AppCtrl, $location, $scope;
 
-    beforeEach( module( 'ngSS' ) );
+    beforeEach( angular.mock.module( 'ngSS' ) );
 
     beforeEach( inject( function( $controller, _$location_, $rootScope ) {
       $location = _$location_;
@@ -11,7 +11,7 @@ describe( 'AppCtrl', function() {
     }));
 
     it( 'should pass a dummy test', inject( function() {
-      expect( AppCtrl ).toBeTruthy();
+      expect( AppCtrl ).to.be.ok();
     }));
   });
 });

@@ -4,7 +4,8 @@ angular.module( 'ngSS', [
   'ngSS.home',
   'ngSS.about',
   'ngSS.contacts',
-  'ui.router'
+  'ui.router',
+  'restangular'
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {

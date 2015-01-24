@@ -18,6 +18,7 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-html2js');
+  grunt.loadNpmTasks('grunt-browserify');
 
   /**
    * Load in our build configuration file.
@@ -387,6 +388,31 @@ module.exports = function ( grunt ) {
       }
     },
 
+    // browserify everything
+    browserify: {
+      //standalone: {
+      //  // ... see above
+      //},
+ 
+      require: {
+        src: [ '<%= pkg.name %>.js' ],
+        dest: './browser/<%= pkg.name %>.require.js',
+        options: {
+          alias: [ './<%= pkg.name %>.js:' ]
+        }
+      },
+ 
+      tests: {
+        src: [ '**/*spec.js' ],
+        dest: './browser/browserified_tests.js',
+        options: {
+          external: [ './<%= pkg.name %>.js' ],
+          // Embed source map for tests
+          debug: true
+        }
+      }
+    },
+	
     /**
      * The `index` task compiles the `index.html` file as a Grunt template. CSS
      * and JS files co-exist here but they get split apart later.

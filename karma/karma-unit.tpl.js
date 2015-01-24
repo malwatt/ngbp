@@ -13,16 +13,28 @@ module.exports = function ( karma ) {
       <% }); %>
       'src/**/*.js',
       'src/**/*.coffee',
+	  //'browser/browserified_tests.js'
     ],
     exclude: [
       'src/assets/**/*.js'
     ],
-    frameworks: [ 'jasmine' ],
-    plugins: [ 'karma-jasmine', 'karma-firefox-launcher', 'karma-coffee-preprocessor' ],
+    frameworks: [ 'mocha', 'chai', 'sinon', 'browserify' ], //, 'commonjs' ],
+    plugins: [ 'karma-mocha', 'karma-chai', 'karma-sinon', 'karma-browserify', 'karma-phantomjs-launcher', 'karma-coffee-preprocessor' ],
+				//'karma-commonjs',
     preprocessors: {
-      '**/*.coffee': 'coffee',
+      '**/*.spec.coffee': 'coffee',
+	  'src/**/*.spec.js': [ 'browserify' ]
+	  //'**/*spec.js' : ['commonjs']
     },
-
+	browserify: {
+	  debug: true,
+	  //transform: [ 'coffeeify' ],
+	  //extensions: [ '.coffee' ]
+	},
+	
+	//commonjsPreprocessor: {
+	//  modulesRoot: 'node_modules'  
+	//},
     /**
      * How to report, by default.
      */
@@ -55,7 +67,7 @@ module.exports = function ( karma ) {
      * the aesthetic advantage of not launching a browser every time you save.
      */
     browsers: [
-      'Firefox'
+      'PhantomJS'
     ]
   });
 };

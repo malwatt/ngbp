@@ -4,11 +4,16 @@
  * build process will exclude all `.spec.js` files from the build
  * automatically.
  */
+var sinonChai = require('sinon-chai');
+chai.use(sinonChai);
+var chaiAsPromised = require('chai-as-promised');
+chai.use(chaiAsPromised);
+
 describe( 'home section', function() {
-  beforeEach( module( 'ngSS.home' ) );
+  beforeEach( angular.mock.module( 'ngSS.home' ) );
 
   it( 'should have a dummy test', inject( function() {
-    expect( true ).toBeTruthy();
+    expect( true ).to.be.ok();
   }));
 });
 
